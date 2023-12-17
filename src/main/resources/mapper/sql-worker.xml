@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="toy0823.mapper.WorkerMapper">
+
+	
+	<select id="selectWorkerList" resultType="toy0823.dto.WorkerDto">
+		select worker_idx, worker_number, worker_position, worker_name, worker_phonenumber, worker_email 
+		  from workers
+		  where deleted_yn = 'N'
+	     order by worker_idx = #{workerIdx}
+	</select> 
+	
+	<insert id="insertWorker" parameterType="toy0823.dto.WorkerDto">
+	insert into workers
+	(worker_idx, worker_number, worker_name, worker_phonenumber, worker_position, worker_email)
+	values (#{workerIdx}, #{workerNumber}, #{workerName}, #{workerPhonenumber}, #{workerPosition}, #{workerEmail})
+	</insert>
+	
+	<select id="selectWorkerDetail"  parameterType="int" resultType="toy0823.dto.WorkerDto">
+		select * from workers
+		where worker_idx = #{workerIdx}
+	</select>
+	
+	<update id="updateWorker" parameterType="toy0823.dto.WorkerDto">
+		update workers
+		set 
+			worker_number = #{workerNumber}, 
+			worker_name = #{workerName}, 
+			worker_phonenumber = #{workerPhonenumber}, 
+			worker_position = #{workerPosition}, 
+			worker_email = #{workerEmail}
+			
+		where worker_idx = #{workerIdx}
+	</update>
+
+	<delete id="deleteWorker" parameterType="int"> 
+		update workers
+		set
+		deleted_yn = 'y'
+		where worker_idx = #{workerIdx}
+	</delete>
+
+</mapper>
