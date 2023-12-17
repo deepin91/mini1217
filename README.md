@@ -1,1 +1,1 @@
-Dec my first mini project!
+Mini project!
